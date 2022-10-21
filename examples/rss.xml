@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+<title>My Blog</title>
+<description>All About me.</description>
+<language>en-us</language>
+<link>https://example.com/blog/rss.xml</link>
+<atom:link href="http://example.com/blog/rss.xml" rel="self" type="application/rss+xml" />
+<!-- list -->
+<item>		<title>My First Article</title><guid>https://example.com/blog/article.html</guid><pubDate>Fri, 21 Oct 2022 18:10:20 -0400</pubDate><description><![CDATA[<h1>hi</h1>
+<p>hi guys!</p>
+]]></description></item>
+<item>		<title>My First Article</title><guid>https://example.com/blog/article.html</guid><pubDate>Fri, 21 Oct 2022 18:10:01 -0400</pubDate><description><![CDATA[<h1>hi</h1>
+<p>hi guys!</p>
+]]></description></item>
+</channel>
+</rss>
