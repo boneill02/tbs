@@ -7,7 +7,7 @@
 # * edit $HEADFILE, $TAILFILE, $INDEXFILE, $MDC, and $URL to fit your needs.
 # * create $RSSFILE skeleton with a line containing "<!-- list -->". this is
 #   where new entries will be added.
-# * create your HEADFILE, TAILFILE, and INDEXFILE. 
+# * create your HEADFILE, TAILFILE, and INDEXFILE.
 # * put the string "TITLE" in HEADFILE where the title of the entry will be
 #   entered (probably in <title>).
 # * put "<!-- list -->" in a HTML list tag in INDEXFILE. this is where links to
@@ -16,16 +16,8 @@
 # examples for $INDEXFILE, $RSSFILE, $HEADFILE, and $TAILFILE are in
 # examples/tbs.
 
+. $PWD/tbs.conf
 
-# edit these for configuration
-HEADFILE="head.html" # this will be put in the HTML page before the main content
-TAILFILE="tail.html" # this will be put in the HTML page after the main content
-INDEXFILE="index.html" # this is where a list of entries will be stored
-RSSFILE="rss.xml" # this is the rss file
-MDC="smu" # markdown (or other markup language) to HTML compiler
-URL="https://example.com/blog" # blog URL
-
-# do not edit
 in="$1"
 out="$2"
 title="$3"
