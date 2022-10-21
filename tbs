@@ -1,0 +1,90 @@
+#!/bin/sh
+# tbs: teal blog system.
+# usage: "tbs input.md output.html title"
+#
+# this is a simple blog system with rss support.
+# before using, do the following:
+# * edit $HEADFILE, $TAILFILE, $INDEXFILE, $MDC, and $URL to fit your needs.
+# * create $RSSFILE skeleton with a line containing "<!-- list -->". this is
+#   where new entries will be added.
+# * create your HEADFILE, TAILFILE, and INDEXFILE. 
+# * put the string "TITLE" in HEADFILE where the title of the entry will be
+#   entered (probably in <title>).
+# * put "<!-- list -->" in a HTML list tag in INDEXFILE. this is where links to
+#   the web entries will be added.
+#
+# examples for $INDEXFILE, $RSSFILE, $HEADFILE, and $TAILFILE are in
+# examples/tbs.
+
+
+# edit these for configuration
+HEADFILE="head.html" # this will be put in the HTML page before the main content
+TAILFILE="tail.html" # this will be put in the HTML page after the main content
+INDEXFILE="index.html" # this is where a list of entries will be stored
+RSSFILE="rss.xml" # this is the rss file
+MDC="smu" # markdown (or other markup language) to HTML compiler
+URL="https://example.com/blog" # blog URL
+
+# do not edit
+in="$1"
+out="$2"
+title="$3"
+
+# compile webpage content from markdown to html
+teal_compile() {
+	$MDC $in >> $out
+
+	echo "MDC $in >> $out"
+}
+
+# print beginning section of html (before main content and sidebar)
+teal_head() {
+	[ "$1" = "$TARGET/index.html" ] && NAME="$TITLE"
+	sed "s/TITLE/$TITLE/" $HEADFILE > $out
+
+	echo "STARTHTML $HEADFILE >> $out"
+}
+
+# print end part
+teal_end() {
+	[ "$1" = "$TARGET/index.html" ] && NAME="$TITLE"
+	cat $TAILFILE >> $out
+
+	echo "ENDHTML $TAILFILE >> $out"
+}
+
+# add to blog web index
+teal_index() {
+	date="$(date +'%d %b %Y')"
+	sed -i "/<\!-- list -->/a \
+	<li>$date &ndash; <a href=\"$out\">$title</a></li>" $INDEXFILE
+
+	echo "HTMLINDEX $INDEXFILE"
+}
+
+# add to RSS feed
+teal_rss() {
+	date="$(date +"%a, %d %b %Y %H:%m:%S %z")"
+
+	sed -i "/<\!-- list -->/a\
+		<item>\
+		<title>$title</title>\
+<guid>$URL/$out</guid>\
+<pubDate>$date</pubDate>\
+<description><![CDATA[\
+$($MDC $in | sed 's/$/\\/')
+]]></description>\
+</item>" $RSSFILE
+
+	echo "RSS $RSSFILE"
+}
+
+
+[ "$3" = "" ] && echo "not enough args" && exit 1
+
+teal_head
+teal_compile
+teal_end
+
+teal_index
+teal_rss
