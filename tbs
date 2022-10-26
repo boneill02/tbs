@@ -31,15 +31,15 @@ teal_compile() {
 
 # print beginning section of html (before main content and sidebar)
 teal_head() {
-	[ "$1" = "$TARGET/index.html" ] && NAME="$TITLE"
-	sed "s/TITLE/$TITLE/" $HEADFILE > $out
+	[ "$1" = "$TARGET/index.html" ] && NAME="$title"
+	sed "s/TITLE/$title/g" $HEADFILE > $out
 
 	echo "STARTHTML $HEADFILE >> $out"
 }
 
 # print end part
 teal_end() {
-	[ "$1" = "$TARGET/index.html" ] && NAME="$TITLE"
+	[ "$1" = "$TARGET/index.html" ] && NAME="$title"
 	cat $TAILFILE >> $out
 
 	echo "ENDHTML $TAILFILE >> $out"
