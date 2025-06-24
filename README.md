@@ -18,7 +18,11 @@ Note: skeleton versions of all these files can be found under `examples/`.
   the current working directory.
 * Run `tbs [input.md] [output.html] [title]`.
 
+## Bugs
+
+If you find a bug, submit an issue, PR, or email me with a description and/or patch.
+
 ## License
 
-Copyright (c) 2022 Ben O'Neill <ben@oneill.sh>. Licensed under the
-MIT License. See LICENSE.
+Copyright (c) 2022 Ben O'Neill <ben@oneill.sh>. This work is released under the
+terms of the MIT License. See [LICENSE](LICENSE) for the license terms.
